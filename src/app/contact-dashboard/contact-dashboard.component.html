@@ -1,0 +1,122 @@
+<nav class="navbar navbar-light bg-color">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <img src="../../assets/img/image001.jpg" alt="" width="50" height="50" class="d-inline-block align-text-top">
+    </a>
+    <h1 class="list-heading">Contact Application List</h1>
+    <div class="d-flex">
+      <button (click)="clickAddContact()" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
+              class="btn btn-outline-light">Add New
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div *ngIf="loaderService.isLoading | async">
+  <div style="top: 50%; right: 50%;" class="spinner-border text-success loader-container" role="status">
+  </div>
+</div>
+
+<table class="table mt-3">
+  <thead>
+  <tr>
+    <th class="text-center" scope="col">Contact ID</th>
+    <th class="text-center" scope="col">First Name</th>
+    <th class="text-center" scope="col">Last Name</th>
+<!--    <th class="text-center" scope="col">Email</th>-->
+    <th class="text-center" scope="col">Mobile No.</th>
+    <th class="text-center" scope="col">Salary</th>
+    <th class="text-center" scope="col">Action</th>
+  </tr>
+  </thead>
+  <tbody *ngFor="let data of contactObj">
+  <tr>
+    <td class="text-center td-padding">{{data.id}}</td>
+    <td class="text-center td-padding">{{data.firstName}}</td>
+    <td class="text-center td-padding">{{data.lastName}}</td>
+<!--    <td class="text-center td-padding">{{data.email}}</td>-->
+    <td class="text-center td-padding">{{data.mobile}}</td>
+    <td class="text-center td-padding">{{data.salary}}</td>
+    <td class="text-center">
+      <button (click)="onEdiContact(data)" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
+              class="btn btn-outline-warning">Edit
+      </button>
+      <button type="button" data-bs-toggle="modal" data-bs-target="#dialogModel" class="btn btn-outline-danger mx-3">
+        Delete
+      </button>
+    </td>
+  </tr>
+  <!-- Dialog Model -->
+  <div class="modal fade" id="dialogModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header text-margin bg-color">
+          <h5 class="modal-title third-list-heading" id="dialogModelLabel">Confirmation</h5>
+          <button type="button" class="btn-close close-icon" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div style="font-size: 15px;" class="modal-body">
+          Are you sure to delete this contact?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" (click)="deleteContact(data)" class="btn btn-outline-success">Yes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </tbody>
+</table>
+
+<!-- Modal -->
+<div class="modal fade margin" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header text-margin bg-color">
+        <h1 class="modal-title sec-list-heading" id="exampleModalLabel">Contact Details</h1>
+        <button type="button" class="btn-close close-icon" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <form [formGroup]="formValue">
+          <div class="mb-3">
+            <label for="InputFirstname" class="form-label">First Name</label>
+            <input type="text" formControlName="firstName" class="form-control" id="InputFirstname"
+                   aria-describedby="emailHelp">
+          </div>
+
+          <div class="mb-3">
+            <label for="exampleInputLastname" class="form-label">Last Name</label>
+            <input type="text" formControlName="lastName" class="form-control" id="exampleInputLastname">
+          </div>
+
+
+<!--          <div class="mb-3">-->
+<!--            <label for="exampleInputEmail" class="form-label">Email</label>-->
+<!--            <input type="email" formControlName="email" class="form-control" id="exampleInputEmail">-->
+<!--          </div>-->
+
+
+          <div class="mb-3">
+            <label for="exampleInputMobileNo" class="form-label">Mobile No.</label>
+            <input type="text" formControlName="mobile" class="form-control" id="exampleInputMobileNo">
+          </div>
+
+          <div class="mb-3">
+            <label for="exampleInputSalary" class="form-label">Salary</label>
+            <input type="text" formControlName="salary" class="form-control" id="exampleInputSalary">
+          </div>
+
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="cancel" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" *ngIf="showAdd" (click)="postContactDetails()" class="btn btn-outline-success">Add
+        </button>
+        <button type="button" *ngIf="showUpdate" (click)="updateContactDetails()" class="btn btn-outline-success">Update
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+

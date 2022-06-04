@@ -1,0 +1,16 @@
+{
+  "posts": [
+    {
+      "id": 2,
+      "firstName": "Wai Yan",
+      "lastName": "Kyaw Lin",
+      "email": "",
+      "mobile": "475522222",
+      "salary": "100000000000"
+    }
+  ],
+  "comments": [],
+  "profile": {
+    "name": "typicode"
+  }
+}
